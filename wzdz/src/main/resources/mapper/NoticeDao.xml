@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzdz.dao.NoticeDao">
+	<select id="findNoticeByType" resultType="com.wzdz.dto.NoticeDto">
+	SELECT 
+	t.id,
+	t.content,
+	t.create_date,
+	t.update_date,
+	t.login_id,
+	t.title,
+	t.type,
+	t.logo_path
+	FROM `wzdz_tb_notice` t 	
+	where 
+	t.type = #{type}
+	order by t.create_date Desc
+	LIMIT #{currentPage},#{pageSize}
+	</select>
+	<insert id="readNoticeByIdAndMobile">
+	INSERT
+	 into 
+	 wzdz_tb_notice_user(create_date,update_date,phone,notice_id,isread)
+	values(now(),now(),#{mobile},#{id},'1')
+	</insert>
+	<select id="findNoticeByMobile" resultType="com.wzdz.entity.NoticeUser">
+	select 
+	t.id,
+	t.create_date,
+	t.update_date,
+	t.phone,
+	t.notice_id,
+	t.isread
+	from 
+	wzdz_tb_notice_user t
+	where
+	t.phone = #{mobile}
+	and t.notice_id = #{noticeId}
+	</select>
+</mapper>

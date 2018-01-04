@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.BsznTypeDao">
+	
+	<select id="findAll" resultType="com.wzdz.entity.BsznType">
+		SELECT
+			a.id,
+			a.`name`,
+			a.parentId,
+			a.create_date,
+			a.update_date
+			FROM
+				wzdz_tb_bszn_type AS a
+	ORDER BY a.parentId ASC ,a.create_date DESC;
+	</select>
+	
+	<select id="findByParentId" resultType="com.wzdz.entity.BsznType" parameterType = "String">
+			SELECT
+			a.id,
+			a.`name`,
+			a.parentId,
+			a.create_date,
+			a.update_date
+			
+		FROM
+			wzdz_tb_bszn_type AS a
+		 where a.parentId=#{id}
+		ORDER BY a.parentId ASC,a.create_date DESC;
+	</select>
+	
+	<select id="findById" resultType="com.wzdz.entity.BsznType" parameterType = "String">
+		SELECT
+			a.id,
+			a.`name`,
+			a.parentId,
+			a.create_date,
+			a.update_date
+			
+		FROM
+			wzdz_tb_bszn_type AS a
+		 where a.id=#{id};
+	</select>
+	
+	<update id="update" parameterType = "com.wzdz.entity.BsznType">
+			update 
+		wzdz_tb_bszn_type t
+		set 
+		t.name = #{name},
+		t.parentId = #{parentId},
+		t.update_date = now()
+		where 
+		 t.id=#{id};
+	</update>
+	<delete id="delete">
+		delete from wzdz_tb_bszn_type  where id = #{id}
+	</delete>
+	
+	<insert id="insert" parameterType = "com.wzdz.entity.BsznType">
+		INSERT INTO wzdz_tb_bszn_type  (
+			id,
+			name,
+			parentId,
+			create_date,
+			update_date
+		)
+		VALUES
+			(
+				#{id},#{name},#{parentId},NOW(),NOW())
+	</insert>
+	
+
+	
+</mapper>

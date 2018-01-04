@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.BsznDao">
+	
+	<select id="findAll" resultType="com.wzdz.entity.Bszn">
+				SELECT
+			t.id,
+			t.create_date,
+			t.update_date,
+			t.sxbm,
+			t.sxfl,
+			t.sxmc,
+			t.sxxz,
+			t.sscj,
+			t.xsyj,
+			t.bldz,
+			t.sltj,
+			t.sfyj,
+			t.fdqx,
+			t.cnqx,
+			t.blzt,
+			t.lxdh,
+			t.fwbg,
+			t.jddh,
+			t.zxbl,
+			t.type,
+			b.name as typeName
+				FROM
+			wzdz_tb_bszn t
+		LEFT JOIN wzdz_tb_bszn_type b ON t.type = b.id ORDER BY t.create_date DESC LIMIT #{pageNum},#{pageSize};
+	</select>
+	<select id="findCount" parameterType = "String" resultType="int">
+		select count(1) from 
+			wzdz_tb_bszn t where 1=1
+			<if test="type != null and type != ''">  
+		       and type = #{type}                     
+		   </if>   
+		 ORDER BY t.create_date DESC ;
+	</select>
+	
+	<select id="findById" resultType="com.wzdz.entity.Bszn" parameterType = "String">
+		SELECT
+			t.blzt,
+			t.sxbm,
+			t.sxfl,
+			t.sxxz,
+			t.sscj,
+			t.xsyj,
+			t.sltj,
+			t.sfyj,
+			t.fdqx,
+			t.cnqx,
+			t.bldz,
+			t.fwbg,
+			t.zxbl,
+			t.lxdh,
+			t.jddh,
+			t.type,
+			t.create_date,
+			t.update_date,
+			t.id,
+			t.sxmc,
+			b. NAME AS typeName
+		FROM
+			`wzdz_tb_bszn` t LEFT JOIN wzdz_tb_bszn_type b ON t.type = b.id
+			where t.id=#{id};
+	</select>
+	<select id="findByType" resultType="com.wzdz.entity.Bszn">
+		SELECT
+			t.id,
+			t.create_date,
+			t.update_date,
+			t.sxbm,
+			t.sxfl,
+			t.sxmc,
+			t.sxxz,
+			t.sscj,
+			t.xsyj,
+			t.bldz,
+			t.sltj,
+			t.sfyj,
+			t.fdqx,
+			t.cnqx,
+			t.blzt,
+			t.lxdh,
+			t.fwbg,
+			t.jddh,
+			t.zxbl,
+			t.type,
+			b.name as typeName
+		FROM
+			`wzdz_tb_bszn` t LEFT JOIN wzdz_tb_bszn_type b ON t.type = b.id
+			where 1=1
+			<if test="type != null and type !=''">
+				and t.type = #{type} 
+			</if>
+			<if test="keyword != null and keyword != ''">  
+		      AND t.sxmc LIKE  concat('%',#{keyword},'%')                 
+			</if>
+			ORDER BY t.create_date DESC 
+			<if test="pageNum != 0 and pageSize != 0">
+				LIMIT  #{pageNum},#{pageSize};
+			</if>
+			
+	</select>
+	
+	<update id="update" parameterType = "com.wzdz.entity.Bszn">
+			update 
+		wzdz_tb_bszn t
+		set 
+		t.sxbm = #{sxbm},
+		t.sxfl = #{sxfl},
+		t.sxmc = #{sxmc},
+		t.sxxz = #{sxxz},
+		t.sscj = #{sscj},
+		t.xsyj = #{xsyj},
+		t.bldz = #{bldz},
+		t.sltj = #{sltj},
+		t.sfyj = #{sfyj},
+		t.fdqx = #{fdqx},
+		t.cnqx = #{cnqx},
+		t.blzt = #{blzt},
+		t.lxdh = #{lxdh},
+		t.fwbg = #{fwbg},
+		t.zxbl = #{zxbl},
+		t.type = #{type},
+		t.jddh = #{jddh},
+		t.update_date = now()
+		where 
+		 t.id=#{id};
+	</update>
+	<delete id="delete">
+		delete from wzdz_tb_bszn  where id = #{id}
+	</delete>
+	
+	<insert id="insert" parameterType = "com.wzdz.entity.Bszn">
+		INSERT INTO wzdz_tb_bszn (
+			id,
+			sxbm,
+			sxfl,
+			sxmc,
+			sxxz,
+			sscj,
+			xsyj,
+			bldz,
+			sltj,
+			sfyj,
+			fdqx,
+			cnqx,
+			blzt,
+			lxdh,
+			fwbg,
+			jddh,
+			zxbl,
+			type,
+			create_date,
+			update_date
+		)
+		VALUES
+			(
+				#{id},#{sxbm},#{sxfl},#{sxmc},
+				#{sxxz},#{sscj},#{xsyj},#{bldz},#{sltj},
+				#{sfyj},#{fdqx},#{cnqx},#{blzt},#{lxdh},
+				#{fwbg},#{jddh},#{zxbl},#{type},now(),now());
+	</insert>
+</mapper>

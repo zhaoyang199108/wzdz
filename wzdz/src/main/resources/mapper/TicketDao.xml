@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.TicketDao">
+	
+	<select id="findAll"  resultType="com.wzdz.entity.ScenicSpot"> 
+		SELECT
+		t.id,
+		t.login_id,
+		t.jq_name,
+		t.jq_addres,
+		t.logo,
+		t.jq_money,
+		t.jq_tel,
+		t.area
+		FROM wzdz_tb_scenic_spot t
+		LIMIT #{currentPage}, #{pageSize}
+	</select>
+	
+	<select id="findByArea"  resultType="com.wzdz.entity.ScenicSpot"> 
+		SELECT
+		t.id,
+		t.login_id,
+		t.jq_name,
+		t.jq_addres,
+		t.logo,
+		t.jq_money,
+		t.jq_tel,
+		t.area
+		FROM wzdz_tb_scenic_spot t
+		where t.area=#{area}
+		LIMIT #{currentPage}, #{pageSize}
+	</select>
+	
+	<select id="findList"  resultType="String"> 
+		SELECT  distinct(area)  FROM wzdz_tb_scenic_spot  
+	</select>
+	
+</mapper>

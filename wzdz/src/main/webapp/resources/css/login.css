@@ -1,0 +1,51 @@
+  body {
+	     background-image: url('imgs/login_bg.png'); 
+	     width:95%;
+	     height:95%;
+	     background-position: 50% 50%;
+	     background-repeat:no-repeat;
+ }
+#number{
+		background:url('imgs/loginBox_userName.png') no-repeat;
+		width:274px;
+		height:41px;
+		padding-left:33px;
+		line-height:20px;
+		border:1px solid #727171;
+		border-radius:5px;
+		outline:none;
+}
+#password_NotEncrypted{
+		background:url('imgs/loginBox_pwd.png') no-repeat;
+		width:274px;
+		height:41px;
+		padding-left:33px;
+		line-height:20px;
+		border:1px solid #727171;
+		border-radius:5px;
+		outline:none;
+}
+#btn_login{
+		background:url('imgs/btn_login.png') no-repeat;
+		height: 40px;
+		width: 274px;
+		border-top-width: 0px;
+		border-right-width: 0px;
+		border-bottom-width: 0px;
+		border-left-width: 0px;
+		border-top-style: solid;
+		border-right-style: solid;
+		border-bottom-style: solid;
+		border-left-style: solid;
+		cursor:pointer;
+		outline:none;
+}
+#login_box{
+		width:343px;
+		height:296px;
+		background: url('imgs/login.png') no-repeat; 
+		background-size:100% 100%; 
+		position:absolute; 
+		right:90; 
+		top:200;
+}

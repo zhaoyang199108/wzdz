@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzdz.dao.UserDao">
+	<select id="findUserByUserName" resultType="User" parameterType="String">
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.password,
+		t.user_name,
+		t.user_name_py,
+		t.phone_no,
+		t.level_id,
+		t.type,
+		t.r_ip,
+		t.r_tool,
+		t.status,
+		t.status_no,
+		t.enabled,
+		t.remark,
+		t.user_picture,
+		t.gender,
+		t.birthday,
+		t.location,
+		t.nickname
+		FROM `wzdz_tb_user` t
+		where t.phone_no=#{userName};
+	</select>
+	<insert id="insertUser" parameterType="com.wzdz.entity.User">
+		insert into wzdz_tb_user(phone_no,password)
+		values(#{phoneNo},#{password});
+	</insert>
+	<update id="updateUserSetUserPicture" parameterType = "String">
+	update 
+	wzdz_tb_user t
+	set t.user_picture = #{picture}
+	where 
+	 t.phone_no=#{mobile};
+	</update> 
+	<update id="modifyPassword" parameterType = "String">
+	update
+	wzdz_tb_user t
+	set t.password=#{nPsw}
+	where 
+	t.phone_no=#{mobile}
+	</update> 
+	<update id="updateUser" parameterType="com.wzdz.entity.User">
+	update
+	wzdz_tb_user t
+	set
+	t.user_name = #{userName},
+	t.birthday = #{birthday},
+	t.location = #{location},
+	t.nickname = #{nickname},
+	t.gender = #{gender}
+	where
+	t.phone_no=#{phoneNo}
+	</update>
+	<update id="modifyMobile" parameterType="String">
+	update 
+	wzdz_tb_user t
+	set
+	t.phone_no = #{mobile}
+	where
+	t.phone_no = #{oMobile}
+	</update>
+	<update id="forgetPassword" parameterType="String">
+	update 
+	wzdz_tb_user t
+	set
+	t.password = #{nPsw}
+	where
+	t.phone_no = #{mobile}
+	</update>
+
+</mapper>

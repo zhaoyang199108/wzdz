@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.ScenicSpotDao">
+	
+	<select id="findByType"  resultType="com.wzdz.entity.ScenicSpot"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.jq_name,
+		t.jq_addres,
+		t.logo,
+		t.jq_level,
+		t.jq_money,
+		t.jq_voice,
+		t.stauts,
+		t.content,
+		t.jq_tel,
+		t.introduction,
+		t.area
+		FROM wzdz_tb_scenic_spot t
+		where 
+		t.stauts=#{stauts} 
+		LIMIT #{currentPage}, #{pageSize}
+	</select>
+	
+	
+	<select id="findByIdAndType"  resultType="com.wzdz.entity.ScenicSpot" > 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.jq_name,
+		t.jq_addres,
+		t.logo,
+		t.jq_level,
+		t.jq_money,
+		t.jq_voice,
+		t.stauts,
+		t.content,
+		t.logo_path,
+		t.introduction,
+		t.jq_tel,
+		t.area
+		FROM wzdz_tb_scenic_spot t
+		where t.id=#{id} and t.stauts=#{stauts}
+	</select>
+		<select id="findById"  resultType="com.wzdz.entity.ScenicSpot" > 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.jq_name,
+		t.jq_addres,
+		t.logo,
+		t.jq_tel,
+		t.jq_level,
+		t.jq_money,
+		t.jq_voice,
+		t.stauts,
+		t.content,
+		t.logo_path,
+		t.introduction,
+		t.area
+		FROM wzdz_tb_scenic_spot t
+		where t.id=#{id}
+	</select> 
+	<select id="findPicBySSId" resultType="com.wzdz.entity.ScenicPic" >
+	select 
+	t.id,
+	t.create_date,
+	t.update_date,
+	t.jq_id,
+	t.login_id,
+	t.file_dir
+	from 
+	wzdz_tb_scenic_pic t
+	where 
+	t.jq_id = #{id}
+	</select>
+</mapper>

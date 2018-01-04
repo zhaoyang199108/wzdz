@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.ClickCollectDao">
+
+	
+	<select id="findClick"  resultType="com.wzdz.entity.ClickCollect"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.click,
+		t.type,
+		t.type_id
+		FROM wzdz_tb_click_collect t
+		where 
+		t.type=#{type} 
+		and 	t.type_id=#{typeId} 
+		and t.login_id=#{loginId} 
+		and t.click = '1'
+	</select>
+	
+	<insert id="insertIntoClick"  parameterType="com.wzdz.entity.ClickCollect" >
+		insert into 
+		wzdz_tb_click_collect(
+		create_date,
+		update_date,
+		login_id,
+		click,
+		type,
+		type_id
+		)
+		values(
+		now(),
+		now(),
+		#{loginId},
+		"1",
+		#{type},
+		#{typeId});
+	</insert>
+	
+	<select id="findCollect"  resultType="com.wzdz.entity.ClickCollect"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.collect,
+		t.type,
+		t.type_id
+		FROM wzdz_tb_click_collect t
+		where 
+		t.type=#{type} 
+		and 	t.type_id=#{typeId} 
+		and t.login_id=#{loginId} 
+		and t.collect = '1'
+	</select>
+	
+	<insert id="insertIntoCollect"  parameterType="com.wzdz.entity.ClickCollect" >
+		insert into 
+		wzdz_tb_click_collect(
+		create_date,
+		update_date,
+		login_id,
+		collect,
+		type,
+		type_id
+		)
+		values(
+		now(),
+		now(),
+		#{loginId},
+		'1',
+		#{type},
+		#{typeId}
+		);
+	</insert>
+	
+	<select id="findSumClick"  resultType="int" > 
+	 select
+	 count(*) click
+	 from 
+	 wzdz_tb_click_collect t 
+	 where t.type=#{type}
+	 and t.type_id = #{id} 
+	 and t.click='1'
+	</select>
+	
+	<select id="findSumCollect"  resultType="int" > 
+		SELECT
+		count(*) collect
+		FROM wzdz_tb_click_collect t
+		where 
+		t.type=#{type} 
+		and 	t.type_id=#{id} 
+		and t.collect='1'
+	</select>
+	<select id="findCollectList" resultType = "com.wzdz.entity.ClickCollect">
+	 select * from (select 
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.click,
+		t.collect,
+		t.type,
+		t.type_id
+		from  
+		wzdz_tb_click_collect t
+		where 
+		t.login_id =#{mobile} and t.collect = '1') d
+        where d.type = '1' or d.type = '2'
+		order by create_date Desc
+		LIMIT #{currentPage},#{pageSize}
+	</select>
+	<select id="findChubbyCollectList" resultType = "com.wzdz.entity.ClickCollect">
+		select 
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.click,
+		t.collect,
+		t.type,
+		t.type_id
+		from  
+		wzdz_tb_click_collect t
+		where 
+		t.type='3'
+		and 
+		t.login_id =#{mobile}
+		and 
+		t.collect = '1'
+		order by create_date Desc
+		LIMIT #{currentPage},#{pageSize}
+	</select>
+	<delete id="cancelCollect" >
+		DELETE
+from 
+wzdz_tb_click_collect 
+where 
+id in( select id from (select 
+		t.id,
+		t.type
+		from  
+		wzdz_tb_click_collect t
+		where 
+		t.login_id =#{mobile} and t.collect = '1'
+		 and
+		t.type_id = #{id}
+		) d  where d.type = '1' or d.type = '2' )
+
+
+
+	</delete>
+		<delete id="cancelChubbyCollect" >
+		delete 
+		from
+		wzdz_tb_click_collect 
+		where 
+		login_id =#{mobile} 
+		and 
+		collect = '1'
+		 and
+		type = '3'
+		and 
+		type_id = #{id}
+	</delete>
+	<!-- select 
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.click,
+		t.collect,
+		t.type,
+		t.type_id
+		from  
+		wzdz_tb_click_collect t
+		where 
+		t.login_id ='18500915423' and t.collect = '1'
+		 and
+		t.type_id = '1' -->
+</mapper>

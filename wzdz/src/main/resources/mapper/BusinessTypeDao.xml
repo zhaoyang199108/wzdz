@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.BusinessTypeDao">
+	
+	<select id="findAll"  resultType="com.wzdz.entity.BusinessType"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.name
+		FROM wzdz_tb_business_type t
+		order by id asc
+	</select>
+	
+</mapper>

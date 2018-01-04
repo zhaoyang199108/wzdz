@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.TrafficConDao">
+	
+	<select id="findAll" resultType="com.wzdz.entity.TrafficCon">
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.limit_rule,
+		t.limit_scope,
+		t.limit_time,
+		t.other
+		FROM `wzdz_tb_traffic_con` t;
+	</select>
+	
+	<select id="findById" resultType="com.wzdz.entity.TrafficCon">
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.limit_rule,
+		t.limit_scope,
+		t.limit_time,
+		t.other
+		FROM `wzdz_tb_traffic_con` t
+		where
+		t.id=#{id};;
+	</select>
+	
+	<update id="update" parameterType = "com.wzdz.entity.TrafficCon">
+			update 
+		wzdz_tb_traffic_con t
+		set 
+		t.limit_time = #{limitTime},
+		t.limit_scope = #{limitScope},
+		t.limit_rule = #{limitRule},
+		t.other = #{other},
+		t.update_date = now()
+		where 
+		 t.id=#{id};
+	</update>
+	
+
+	
+</mapper>

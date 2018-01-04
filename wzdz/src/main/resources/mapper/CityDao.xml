@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.CityDao">
+	
+	<select id="findAll" resultType="com.wzdz.entity.City">
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.title,
+		t.information,
+		t.jzyg,
+		t.f_id
+		FROM `wzdz_tb_city` t;
+	</select>
+	
+	<select id="findByTitleAndInformation" parameterType="com.wzdz.entity.City" resultType="City"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.login_id,
+		t.title,
+		t.information,
+		t.jzyg,
+		t.f_id
+		FROM wzdz_tb_city t
+		where 
+		t.title=#{title}
+	    and t.information=#{information}
+	</select>
+	
+</mapper>

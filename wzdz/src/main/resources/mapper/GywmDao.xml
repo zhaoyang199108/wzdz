@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzdz.dao.GywmDao">
+	<select id="findGywm" resultType="com.wzdz.entity.Gywm">
+	SELECT 
+	t.id,
+	t.create_date,
+	t.update_date,
+	t.logo,
+	t.hot_phone,
+	t.wxpt,
+	t.version,
+	t.ptwz
+	 FROM `wzdz_tb_gywm` t;
+	</select>
+
+</mapper>

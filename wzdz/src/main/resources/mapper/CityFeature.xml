@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.CityFeatureDao">
+
+	
+	<select id="findByIdAndType"  resultType="com.wzdz.entity.CityFeature"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.title,
+		t.content,
+		t.logo,
+		t.logo_path,
+		t.introduction,
+		t.type
+		FROM wzdz_tb_city_feature t
+		where 
+		t.type=#{type} 
+		LIMIT #{currentPage}, #{pageSize}
+	</select>
+	
+	
+	<select id="findById"  resultType="com.wzdz.entity.CityFeature"> 
+		SELECT
+		t.id,
+		t.create_date,
+		t.update_date,
+		t.title,
+		t.content,
+		t.logo,
+		t.logo_path,
+		t.introduction,
+		t.type
+		FROM wzdz_tb_city_feature t
+		where 
+		t.type=#{type} 
+		and 	t.id=#{id} 
+	</select>
+	
+</mapper>

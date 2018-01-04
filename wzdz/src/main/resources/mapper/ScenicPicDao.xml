@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.wzdz.dao.ScenicPicDao">
+	<select id="findPicBySSId" resultType="com.wzdz.entity.ScenicPic" >
+	select 
+	t.id,
+	t.create_date,
+	t.update_date,
+	t.jq_id,
+	t.login_id,
+	t.file_dir
+	from 
+	wzdz_tb_scenic_pic t
+	where 
+	t.jq_id = #{id}
+	</select>
+</mapper>
